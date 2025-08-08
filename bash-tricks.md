@@ -35,7 +35,7 @@
     如圖例：
 
     ```bash
-    echo date -I //result: 2025-08-06
+    date -I //result: 2025-08-06
     echo file-$(date -I) //result: file-2025-08-06
     ```
 
@@ -43,7 +43,7 @@
 
 - `crtl + A`：指標回到字首
 - `crtl + E`：指標回到字尾
-- `crtl + I`：清除畫面
+- `crtl + L`：清除畫面
 - `crtl + D`：離開 `bash`
 
 ## So... what is "bash"?
@@ -66,7 +66,7 @@
 2. 透過 `vim` 製作 `.sh` 腳本，並透過 `esc` + `:wq` 存檔
 
     ```vim
-    WHO = Uncle Lin
+    WHO="Uncle Lin"
 
     echo $WHO is handsome!
     ```
