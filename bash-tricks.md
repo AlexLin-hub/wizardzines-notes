@@ -28,7 +28,7 @@
 
     ```bash
     for i in {1..5}; do echo $i.jpg; done
-    // result: 1.jpg 2.jpg 3.jpg 4.jpg 5.jpg
+    # result: 1.jpg 2.jpg 3.jpg 4.jpg 5.jpg
     ```
 
 5. `$()` 命令替換，可將 `()` 中執行結果，變成值串接於後方
