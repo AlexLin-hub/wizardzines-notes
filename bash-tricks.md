@@ -13,7 +13,7 @@
     你也可以試試看：
 
     ```bash
-    echo file.{jpg,png} // result: file.jpg file.png
+    echo file.{jpg,png} # result: file.jpg file.png
     ```
 
 3. `!!` 為「重複執行上一次指令」，如圖例提到的 `sudo !!`  
