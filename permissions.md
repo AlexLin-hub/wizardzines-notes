@@ -57,11 +57,11 @@ ls -l file.txt
 ## 3 圖解權限
 ![](https://i.meee.com.tw/ve5isma.png)
 * 前三個: 特殊權限
-  * setuid(Set User ID)
-  * setgid(Set Group ID)
-  * sticky(sticky bit)
-* 後三個:  user、group、other。
-* 每組以二進位表示：rwx = 110, rw- = 110, r-- = 100。
+  * setuid(Set User ID, s)
+  * setgid(Set Group ID, s)
+  * sticky(sticky bit, t)
+* 後三個:  user、group、other
+* 每組以二進位表示：rwx = 110, rw- = 110, r-- = 100
 
 ## 4. 改變檔案權限
 ```bash
@@ -69,9 +69,15 @@ ls -l file.txt
 chmod 644 file.txt
 ```
 * `chmod`: 在 Unix 中修改檔案或資料夾權限 (change mode)
-* 110 100 100 換算為 6 4 4，即增加三個權限 `rw-` `r--` `r--`
+* 第一個數字 -> user
+* 第二個數字 -> group
+* 第三個數字 -> others
+* 110 100 100 換算為 6 4 4，即增加三個權限 `rw-` `r--` `r--`(r=4, w=2, x=1)
+
 
 ## 5. setuid 和 setgid 的特別效果
+![](https://i.meee.com.tw/sPTUGAD.png)
+### 5.1 setuid
 ```bash
 # input
 ls -l /bin/ping
@@ -79,10 +85,21 @@ ls -l /bin/ping
 # output
 rws r-x r-x root root
 ```
-* `rws r-x r-x root root`，s 表示 ping 每次執行時會以 root 權限運行（setuid）
+> 原本 user 權限應該是 `rwx`，但 `x` 被 `s` 取代，代表啟用了 `setuid`，ping 每次執行時會以 root 身份運行
 
+### 5.2 setgid
+> `setgid` 的行為會因可執行檔、目錄、檔案而不同，比 setuid 更難直觀理解
 
 ## 6. 補充
-刪除權限
+### 6.1 刪除權限
 > 如果要「拿掉」某一個權限，可以用 `chmod` 配合 `-` （如 `chmod a-w filename`）；
-* a 代表「all」，即檔案的 user, group, anyone
+* `a` 代表「all」，即檔案的 user, group, anyone
+* `a-w`: → 現在所有人只能讀，不能再寫
+
+### 6.2 sticky
+* 只對目錄有意義，主要用在共享目錄
+* 設定之後，目錄裡的檔案，任何人都可寫入（如果有 w），但只有檔案的擁有者、目錄擁有者或 root 才能刪除或改名
+* 常見例子：/tmp 目錄
+```bash
+drwxrwxrwx   9 root root 4096 Aug 20 23:30 tmp
+```
