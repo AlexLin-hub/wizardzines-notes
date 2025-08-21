@@ -9,7 +9,7 @@
 
 
 ## 2. 實際操作
-以下使用 [線上 bash 工具 glot] (https://glot.io)操作
+以下使用 [線上 bash 工具 glot](https://glot.io)操作
 
 ### 2.1 列出檔案權限
 假設有一個檔案 `main.sh`
@@ -21,7 +21,7 @@ ls -l
 total 4
 -rw-r--r-- 1 glot glot 5 Aug 19 14:17 main.sh
 ```
-- `total 4`: 每個目錄下檔案的磁碟區塊數（blocks），非檔案數量，而是空間單位。通常一個 block = 4KB，total 4 代表約佔用 4KB 磁碟區塊）
+- `total 4`: 每個目錄下檔案的磁碟區塊數（blocks），非檔案數量，而是空間單位。通常一個 block = 4KB，total 4 代表約佔用 16KB 磁碟區塊）
 - `-rw-r--r--`
   * `-`：一般檔案（若是目錄會是 d）
   * `rw-`: 擁有者 (user)，有讀、寫權限
@@ -54,14 +54,14 @@ ls -l file.txt
 * staff（group）read
 * other（anyone）read
 
-## 3 圖解權限
+## 3. 圖解權限
 ![](https://i.meee.com.tw/ve5isma.png)
 * 前三個: 特殊權限
   * setuid(Set User ID, s)
   * setgid(Set Group ID, s)
   * sticky(sticky bit, t)
 * 後三個:  user、group、other
-* 每組以二進位表示：rwx = 110, rw- = 110, r-- = 100
+* 每組以二進位表示：rwx = 111, rw- = 110, r-- = 100
 
 ## 4. 改變檔案權限
 ```bash
@@ -94,7 +94,7 @@ rws r-x r-x root root
 ### 6.1 刪除權限
 > 如果要「拿掉」某一個權限，可以用 `chmod` 配合 `-` （如 `chmod a-w filename`）；
 * `a` 代表「all」，即檔案的 user, group, anyone
-* `a-w`: → 現在所有人只能讀，不能再寫
+* `a-w`: → 現在所有人只能寫（覆蓋 `echo 'hi' > file.txt`，但不能看到自己寫的東西 `cat...`）
 
 ### 6.2 sticky
 * 只對目錄有意義，主要用在共享目錄
